@@ -1,55 +1,23 @@
 import { createStore } from 'vuex'
-const moduleA = {
-  state: () => {
-    return {
-      username: '模块a',
-    }
-  },
-  getters: {
-    changeName(state) {
-      return state.username + 'aaaaaaaaa'
-    },
-  },
-}
+// 使用vuex-persistedstate插件来进行持久化
+import createPersistedstate from 'vuex-persistedstate'
 
-const moduleB = {
-  namespaced: true,
-  state: () => {
-    username: '模块b'
-  },
-  getters: {
-    changeName(state) {
-      return state.username + 'bbbbbbbbb'
-    },
-  },
-  mutations: {
-    updateName(state) {
-      state.username = 'bbbbb' + state.username
-    },
-  },
-  actions: {
-    updateName({ commit }) {
-      setTimeout(() => {
-        commit('updateName')
-      }, 1000)
-    },
-  },
-}
+import user from './modules/user'
+import cart from './modules/cart'
+import category from './modules/category'
 export default createStore({
-  state: {
-    person: [
-      { id: 1, name: 'zs', gender: '男' },
-      { id: 2, name: 'sd', gender: '男' },
-      { id: 3, name: 'zz', gender: '女' },
-    ],
-  },
   modules: {
-    moduleA,
-    moduleB,
+    user,
+    category,
+    cart,
   },
-  getters: {
-    boys: (state) => {
-      return state.person.filter((p) => p.gender === '男')
-    },
-  },
+  //配置插件
+  plugins: [
+    createPersistedstate({
+      //本地存储名字
+      key: 'erabbit-client-pc-store',
+      //指定需要存储的模块
+      paths: ['user', 'cart'],
+    }),
+  ],
 })

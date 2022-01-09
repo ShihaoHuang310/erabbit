@@ -1,11 +1,12 @@
 <template lang="">
-  <router-view></router-view>
+  <div>
+      HOME page
+  </div>
 </template>
 <script>
-
 export default {
-  name: 'App',
+  name: 'HomePage'
 }
 </script>
-<style lang="less">
+<style lang="">
 </style>
