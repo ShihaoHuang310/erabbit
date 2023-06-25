@@ -1,0 +1,1 @@
+<template>HomeHot</template>
