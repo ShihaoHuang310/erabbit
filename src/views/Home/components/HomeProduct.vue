@@ -1,5 +1,7 @@
 <script setup>
 import HomePanel from './HomePanel.vue'
+import GoodsItem from './GoodsItem.vue'
+
 import { getGoodsAPI } from '@/apis/home'
 import { ref, onMounted } from 'vue'
 const goodsProduct = ref([])
@@ -25,12 +27,7 @@ onMounted(() => getGoods())
           </RouterLink>
           <ul class="goods-list">
             <li v-for="goods in cate.goods" :key="goods.id">
-              <RouterLink to="/" class="goods-item">
-                <img v-img-lazy="goods.picture" alt="" />
-                <p class="name ellipsis">{{ goods.name }}</p>
-                <p class="desc ellipsis">{{ goods.desc }}</p>
-                <p class="price">&yen;{{ goods.price }}</p>
-              </RouterLink>
+              <GoodsItem :goods="goods" />
             </li>
           </ul>
         </div>
