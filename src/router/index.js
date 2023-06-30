@@ -27,13 +27,22 @@ const routes = [
         path: 'category/sub/:id',
         name: 'SubCategory',
         component: () => import('@/views/SubCategory/index.vue')
+      },
+      {
+        path: 'detail/:id',
+        name: 'Detail',
+        component: () => import('@/views/Detail/index.vue')
       }
     ]
   }
 ]
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
+  //路由滚动行为定制
+  scrollBehavior() {
+    return { top: 0 }
+  }
 })
 
 export default router
