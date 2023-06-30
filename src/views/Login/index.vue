@@ -1,17 +1,20 @@
 <script setup>
 import { ref } from 'vue'
-import { loginApi } from '@/apis/user'
 import { useRouter } from 'vue-router'
 
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 
-const router = useRouter()
+import { useUserStore } from '@/stores/user'
+// import { storeToRefs } from 'pinia'
 
+const router = useRouter()
+const userStore = useUserStore()
+// const { userInfo } = storeToRefs(userStore)
 //表单校验
 const form = ref({
-  account: '',
-  password: '',
+  account: 'xiaotuxian001',
+  password: '123456',
   agree: true
 })
 //规则对象
@@ -36,8 +39,7 @@ const doLogin = () => {
     if (valid) {
       console.log('校验成功')
       const { account, password } = form.value
-      const res = await loginApi({ account, password })
-      console.log(res)
+      await userStore.getUserInfo({ account, password })
       // 1. 提示用户
       ElMessage({ type: 'success', message: '登录成功' })
       // 2. 跳转首页
